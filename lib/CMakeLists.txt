@@ -17,10 +17,17 @@ add_library(lib SHARED src/taskk.cpp
         src/utils/utils.hpp
         src/globals/globals.cpp
         src/io/io.cpp
-        src/io/io.hpp)
+        src/io/io.hpp
+        src/json/json.cpp
+        src/json/json.hpp)
 
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")
 
-target_include_directories(lib PRIVATE src)
+
+target_link_libraries(lib PRIVATE ${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a)
+
+target_include_directories(lib PRIVATE
+        src
+        libs/jansson/include)
 
 target_compile_definitions(lib PRIVATE TASKK_EXPORT)

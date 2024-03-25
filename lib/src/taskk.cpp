@@ -3,10 +3,12 @@
 //
 
 #include "include/taskk/taskk.h"
+#include "logic/logic.hpp"
 #include <iostream>
 
 __declspec(dllexport) void taskk_begin_operation(char * name)
 {	std::cout << "Taskk : beginning operation '" << name << "\'\n";
+	logic::ensure_initialization();
 }
 
 __declspec(dllexport) void taskk_end_operation(char * name)

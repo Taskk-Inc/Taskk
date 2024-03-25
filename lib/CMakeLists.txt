@@ -8,7 +8,16 @@ add_library(lib SHARED src/taskk.cpp
         src/include/taskk/taskk_api.h
         src/include/taskk/taskk.hpp
         src/include/taskk/taskk_api.hpp
-        src/taskk_cxx_wrapper.cpp)
+        src/taskk_cxx_wrapper.cpp
+        src/logic/logic.cpp
+        src/logic/logic.hpp
+        src/data_types/data_types.hpp
+        src/globals/globals.hpp
+        src/utils/utils.cpp
+        src/utils/utils.hpp
+        src/globals/globals.cpp
+        src/io/io.cpp
+        src/io/io.hpp)
 
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")
 

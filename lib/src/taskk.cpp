@@ -12,3 +12,4 @@ __declspec(dllexport) void taskk_begin_operation(char * name)
 __declspec(dllexport) void taskk_end_operation(char * name)
 {	std::cout << "Taskk : ending operation '" << name << "\'\n";
 }
+

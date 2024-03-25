@@ -18,8 +18,7 @@ add_executable(client src/main.cpp
         src/ui/ui.cpp
         src/ui/ui.hpp
         src/templates/delegate.hpp
-        src/ui/ui_creation_helpers.hpp
-        ../tester/src/main.cpp)
+        src/ui/ui_creation_helpers.hpp)
 
 target_include_directories(client PRIVATE
         src

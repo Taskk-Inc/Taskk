@@ -2,12 +2,12 @@
 // Created by César B. on 3/25/2024.
 //
 
-#include <taskk/taskk.h>
+#include <taskk/taskk.hpp>
 
 int main()
 {
-	taskk_begin_operation("begin_task_name");
-	taskk_end_operation("begin_task_name");
+	taskk::begin_operation("begin_task_name");
+	taskk::end_operation("begin_task_name");
 	return 0;
 }
 

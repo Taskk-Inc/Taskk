@@ -5,7 +5,10 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_library(lib SHARED src/taskk.cpp
         src/include/taskk/taskk.h
-        src/include/taskk/taskk_api.h)
+        src/include/taskk/taskk_api.h
+        src/include/taskk/taskk.hpp
+        src/include/taskk/taskk_api.hpp
+        src/taskk_cxx_wrapper.cpp)
 
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")
 

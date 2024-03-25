@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.27)
-project(taskk_client)
+project(client)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTOMOC ON)
@@ -14,17 +14,18 @@ find_package(Qt6 COMPONENTS
         Widgets
         REQUIRED)
 
-add_executable(taskk_client src/main.cpp
+add_executable(client src/main.cpp
         src/ui/ui.cpp
         src/ui/ui.hpp
         src/templates/delegate.hpp
-        src/ui/ui_creation_helpers.hpp)
+        src/ui/ui_creation_helpers.hpp
+        ../tester/src/main.cpp)
 
-target_include_directories(taskk_client PRIVATE
+target_include_directories(client PRIVATE
         src
         libs/lua/include)
 
-target_link_libraries(taskk_client
+target_link_libraries(client
         Qt::Core
         Qt::Gui
         Qt::Widgets

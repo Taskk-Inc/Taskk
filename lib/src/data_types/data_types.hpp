@@ -14,6 +14,8 @@ namespace data_types
 	struct operation
 	{	/// this operation's name
 		std::string label;
+		/// the duration, in microseconds, of this operation
+		std::chrono::microseconds duration;
 		/// unix time, relative to the session's start timestamp
 		std::map<std::chrono::microseconds, operation> sub_operations;
 	};
@@ -36,5 +38,14 @@ namespace data_types
 			file_guard() = delete;
 			file_guard(FILE * file) : file(file) {}
 			~file_guard() { fclose(file); }
+	};
+
+	/**
+	 * @brief data structure of globals::current_operation_data
+	 * @see globals::current_operation_data
+	 */
+	struct current_operation_data
+	{	std::chrono::microseconds start_timestamp;
+		data_types::operation * operation;
 	};
 }

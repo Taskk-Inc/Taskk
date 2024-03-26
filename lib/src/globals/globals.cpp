@@ -4,4 +4,4 @@
 
 #include "globals.hpp"
 
-data_types::operation * globals::current_operation = nullptr;
+data_types::current_operation_data  globals::current_operation_data = { std::chrono::microseconds(0), nullptr };

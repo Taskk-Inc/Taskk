@@ -5,8 +5,10 @@
 #pragma once
 
 #include <string>
+#include <chrono>
 #include "data_types/data_types.hpp"
 
 namespace json
-{	std::string encode_session(data_types::session);
+{
+	std::string encode_session(data_types::session);
 }

@@ -3,13 +3,13 @@
 //
 
 #include "include/taskk.hpp"
-#include "include/taskk.h"
+#include "logic/logic.hpp"
 
 __declspec(dllexport) void taskk::begin_operation(std::string name)
-{	taskk_begin_operation((char *)name.c_str());
+{	logic::begin_operation(name);
 }
 
 __declspec(dllexport) void taskk::end_operation(std::string name)
-{	taskk_end_operation((char *)name.c_str());
+{	logic::end_operation(name);
 }
 

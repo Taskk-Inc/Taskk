@@ -4,14 +4,11 @@
 
 #include "include/taskk.h"
 #include "logic/logic.hpp"
-#include <iostream>
 
 __declspec(dllexport) void taskk_begin_operation(char * name)
-{	std::cout << "Taskk : beginning operation '" << name << "\'\n";
-	logic::ensure_initialization();
+{	logic::begin_operation(name);
 }
 
 __declspec(dllexport) void taskk_end_operation(char * name)
-{	std::cout << "Taskk : ending operation '" << name << "\'\n";
+{	logic::end_operation(name);
 }
-

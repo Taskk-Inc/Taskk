@@ -2,12 +2,13 @@
 // Created by César B. on 3/25/2024.
 //
 
-#include <taskk/taskk.hpp>
+#include <taskk.hpp>
 
 int main()
-{
-	taskk::begin_operation("begin_task_name");
-	taskk::end_operation("begin_task_name");
+{	taskk_make_scope_operation("my_task");
+	auto my_other_task = taskk::operation_guard("my_other_task");
+	{	taskk::begin_operation("my_subtask");
+		taskk::end_operation("my_subtask");
+	}
 	return 0;
 }
-

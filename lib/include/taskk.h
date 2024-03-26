@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "taskk_api.h"
+#include "taskk/c/taskk_api.h"
 
 TASKK_API void taskk_begin_operation(char * name);
 TASKK_API void taskk_end_operation(char * name);

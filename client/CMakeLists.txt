@@ -12,22 +12,32 @@ find_package(Qt6 COMPONENTS
         Core
         Gui
         Widgets
+        Charts
         REQUIRED)
 
 add_executable(client src/main.cpp
         src/ui/ui.cpp
         src/ui/ui.hpp
         src/templates/delegate.hpp
-        src/ui/ui_creation_helpers.hpp)
+        src/ui/ui_creation_helpers.hpp
+        src/ui/ui_mainwindow.h
+        src/ui/mainwindow.h
+        src/ui/mainwindow.cpp
+        src/ui/mainwindow.ui
+        src/ui/Handlers/OperationsBarData/OperationsBarData.h
+        src/ui/Handlers/OperationsBarData/OperationsBarData.cpp
+)
 
 target_include_directories(client PRIVATE
         src
+        src/ui
         libs/lua/include)
 
 target_link_libraries(client
         Qt::Core
         Qt::Gui
         Qt::Widgets
+        Qt::Charts
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

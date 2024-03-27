@@ -27,22 +27,31 @@ void utils::finish_operation(data_types::timestamp_operation_pair & pair)
 }
 
 data_types::timestamp_operation_pair & utils::find_ongoing_operation(std::string label)
-{	// result declaration
+{
+	// *INDENT-OFF*
+
+	// result declaration
 	data_types::timestamp_operation_pair * found_pair = nullptr;
 
-	// recursive lambda that does the actual search
-	// *INDENT-OFF*
+	/**
+	 * @brief
+	 * recursive lambda that does the actual search and sets found_pair
+	 * to the latest (and deepest) unfinished operation with the given name
+	 * in the whole operation tree
+	 */
 	std::function<void(data_types::timestamp_operation_pair&)> search =
 		[&](data_types::timestamp_operation_pair& pair)
 		{	auto & operation = pair.second;
+
 			if(operation.finished)
 				return;
+
 			if(operation.label == label)
 				found_pair = &pair;
+
 			for(auto & sub_operation_pair : operation.sub_operations)
 				search((data_types::timestamp_operation_pair&)sub_operation_pair);
 		};
-	// *INDENT-ON*
 
 	// search
 	search((data_types::timestamp_operation_pair &)*globals::session.operations.rbegin());
@@ -52,20 +61,26 @@ data_types::timestamp_operation_pair & utils::find_ongoing_operation(std::string
 		utils::log_and_abort(make_string("invalid operation label '" << label << "'"));
 
 	return *found_pair;
+
+	// *INDENT-ON*
 }
 
 data_types::timestamp_operation_pair * utils::find_latest_ongoing_operation()
-{	if(!globals::session.operations.size())
+{	// if there are no main operations, or the last operation has been finished, return nullptr
+	if(!globals::session.operations.size() || globals::session.operations.rbegin()->second.finished)
 		return nullptr;
 
+	// latest pair, last main operation by default
 	auto * latest_pair = &*globals::session.operations.rbegin();
 
+	// look for the latest sub-operation in latest_pair
 	while(latest_pair->second.sub_operations.size())
 	{	auto & latest_sub_operation_pair = *latest_pair->second.sub_operations.rbegin();
-		if(latest_sub_operation_pair.second.finished)
-			break;
-		else
+		if(!latest_sub_operation_pair.second.finished)
 			latest_pair = &latest_sub_operation_pair;
+		else
+			// break out of the loop if all of latest_pair's sub-operations are finished
+			break;
 	}
 
 	return (data_types::timestamp_operation_pair *)latest_pair;

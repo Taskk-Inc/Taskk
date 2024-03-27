@@ -48,7 +48,20 @@ namespace ui::OperationsBarDataHandler
     void FillSpace(int layoutIndex, float endFill);
     void CreateDeepOperation(OperationData data, int layoutIndex);
     void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData);
+
+    void InitScrollbarFunctionalities();
 }
+
+class ScrollBarFunctionalities: public QObject
+{
+    Q_OBJECT
+
+public slots:
+    void Test()
+    {
+        std::cout << "w" << std::endl;
+    }
+};
 
 class POperationButton: public QPushButton
 {

@@ -26,6 +26,8 @@ add_executable(client src/main.cpp
         src/ui/mainwindow.ui
         src/ui/Handlers/OperationsBarData/OperationsBarData.h
         src/ui/Handlers/OperationsBarData/OperationsBarData.cpp
+        src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
+        src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
 )
 
 target_include_directories(client PRIVATE

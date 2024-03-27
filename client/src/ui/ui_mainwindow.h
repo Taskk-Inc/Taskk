@@ -20,6 +20,9 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
+#include <QWheelEvent>
+#include "Handlers/CustomQTClasses/PDataScrollBar.hpp"
+
 class Ui_MainWindow;
 
 namespace ui
@@ -34,7 +37,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_5;
-    QScrollArea *infoScrollArea;
+    PDataScrollBar *infoScrollArea;
     QWidget *scrollAreaWidgetContents_2;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *HLayout1;
@@ -65,12 +68,22 @@ public:
         centralwidget->setObjectName("centralwidget");
         verticalLayout_5 = new QVBoxLayout(centralwidget);
         verticalLayout_5->setObjectName("verticalLayout_5");
-        infoScrollArea = new QScrollArea(centralwidget);
+        infoScrollArea = new PDataScrollBar(centralwidget);
         infoScrollArea->setObjectName("infoScrollArea");
         infoScrollArea->setStyleSheet(QString::fromUtf8(""));
         infoScrollArea->setLineWidth(0);
         infoScrollArea->setWidgetResizable(true);
         infoScrollArea->setAlignment(Qt::AlignRight|Qt::AlignTop|Qt::AlignTrailing);
+        infoScrollArea->setStyleSheet(
+                "QScrollBar:vertical {background: rgb(50, 104, 191); width: 5px;border-style: solid;} "
+                "QScrollBar::handle:vertical {background-color: rgb(54, 54, 54); border: 0px}"
+                "QScrollBar::sub-page:vertical {background: rgb(30, 30, 30);}"
+                "QScrollBar::add-page:vertical {background: rgb(30, 30, 30);}"
+                "QScrollBar::sub-page:horizontal {background: rgb(30, 30, 30);}"
+                "QScrollBar::add-page:horizontal {background: rgb(30, 30, 30);}"
+                "QScrollBar:horizontal {background: rgb(50, 104, 191); height: 5px;border-style: solid;}"
+                "QScrollBar::handle:horizontal {background-color: rgb(54, 54, 54); border: 0px}"
+                );
         scrollAreaWidgetContents_2 = new QWidget();
         scrollAreaWidgetContents_2->setObjectName("scrollAreaWidgetContents_2");
         scrollAreaWidgetContents_2->setGeometry(QRect(0, 0, 1110, 370));

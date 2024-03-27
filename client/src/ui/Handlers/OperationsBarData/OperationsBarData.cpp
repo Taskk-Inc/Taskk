@@ -1,4 +1,5 @@
 #include <QLabel>
+#include <QShortcut>
 #include "OperationsBarData.h"
 //
 // Created by VERB1807 on 3/26/2024.
@@ -10,7 +11,9 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 	float US = end - start;
 
 	POperationButton * pushButton = new POperationButton();
+
 	pushButton->setMinimumWidth(US * 2);
+    pushButton->setMaximumWidth(US * 2);
 	pushButton->setMinimumHeight(25);
 
 	pushButton->setStyleSheet(
@@ -95,6 +98,7 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
     POperationButton * pushButton = new POperationButton();
     pushButton->operationBar = operationBar;
     pushButton->setMinimumWidth(US * 2);
+    pushButton->setMaximumWidth(US * 2);
     pushButton->setMinimumHeight(25);
 
     pushButton->setStyleSheet(
@@ -144,4 +148,14 @@ void ui::OperationsBarDataHandler::CreateHLayout()
 	ui::mainWindow->verticalLayout_4->addItem(ui::mainWindow->verticalSpacer);
 
     ui::OperationsBarDataHandler::horizontalLayouts.push_back(boxData);
+}
+
+void ui::OperationsBarDataHandler::InitScrollbarFunctionalities()
+{
+//    PShortcuts* e = new PShortcuts;
+//
+//    QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+O"), ui::mainWindow->infoScrollArea);
+//    QObject::connect(shortcut, SIGNAL(activated()), e, SLOT(Test()));
+
+//    QObject::connect(ui::mainWindow->infoScrollArea, QWidget::m)
 }

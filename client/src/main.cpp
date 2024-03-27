@@ -20,17 +20,25 @@ int main(int argc, char * argv[])
 //    ui::OperationsBarDataHandler::CreateTransparentBar(350, 375);
 //    ui::OperationsBarDataHandler::CreateBar(375, 425, "Test4");
 
-    ui::OperationsBarDataHandler::CreateBar(0, 100, "Testo", 0);
+//    ui::OperationsBarDataHandler::CreateBar(0, 100, "Testo", 0);
 //    ui::OperationsBarDataHandler::CreateBar(100, 150, "Testo", 0);
 //    ui::OperationsBarDataHandler::CreateTransparentBar(100, 150, 0);
     OperationData testData;
-    testData.start = 180*2;
-    testData.end = 250*2;
+    testData.start = 0;
+    testData.end = 200;
     testData.operationName = "ewef";
-    testData.subData = {{190*2, 210*2, "eee"}, {220*2, 250*2, "what"}};
 
+    OperationData deepData;
+    deepData.start = 220;
+    deepData.end = 400;
+    deepData.operationName = "DEEP";
+    deepData.subData = {{240, 300, "testo"}};
 
-    ui::OperationsBarDataHandler::InitOperation(150, 300*2, "ASD",{testData});
+    testData.subData = {{150, 190, "eee", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}};
+
+    ui::OperationsBarDataHandler::InitOperation(0, 4000, "ASD",{testData, deepData});
+
+    ui::OperationsBarDataHandler::InitScrollbarFunctionalities();
 
     return a.exec();
 }

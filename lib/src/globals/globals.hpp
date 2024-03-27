@@ -9,5 +9,4 @@
 
 namespace globals
 {	inline data_types::session session;
-	extern data_types::current_operation_data current_operation_data;
 }

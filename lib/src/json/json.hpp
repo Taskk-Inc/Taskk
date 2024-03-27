@@ -6,9 +6,16 @@
 
 #include <string>
 #include <chrono>
+#include <map>
 #include "data_types/data_types.hpp"
 
+struct json_t;
+
 namespace json
-{
-	std::string encode_session(data_types::session);
+{	/// also destroys the given object
+	std::string dump(json_t *);
+	void destroy(json_t*);
+	json_t * encode_session(data_types::session);
+	json_t * encode_operation(data_types::timestamp_operation_pair);
+	json_t * encode_operation_list(data_types::timestamp_operation_map);
 }

@@ -3,7 +3,9 @@ project(tester)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_C_STANDARD 11)
 
-add_executable(tester src/main.cpp)
+add_executable(tester src/main.cpp
+        src/main.c
+        src/switch.h)
 
 target_include_directories(tester PRIVATE src ${PROJECT_SOURCE_DIR}/libs/taskk/include)
 

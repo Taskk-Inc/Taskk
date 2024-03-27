@@ -36,6 +36,7 @@ add_library(lib SHARED
         src/json/json.hpp
         #macros
         src/macros/custom_types.hpp
+        src/macros/functions.hpp
 )
 
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")

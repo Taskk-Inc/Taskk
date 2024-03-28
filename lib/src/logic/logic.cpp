@@ -5,8 +5,11 @@
 #include "logic.hpp"
 #include <iostream>
 #include <functional>
+#include <cstdio>
 #include "globals/globals.hpp"
 #include "utils/utils.hpp"
+#include "io/io.hpp"
+#include "json/json.hpp"
 
 void logic::ensure_initialization()
 {	static bool initialized = false;
@@ -16,10 +19,6 @@ void logic::ensure_initialization()
 	}
 }
 
-#include "io/io.hpp"
-#include "json/json.hpp"
-#include "macros/functions.hpp"
-#include <stdio.h>
 void logic::init()
 {	globals::session.start_timestamp = utils::get_unix_time();
 	atexit([] { shutdown(); });

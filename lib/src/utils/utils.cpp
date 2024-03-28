@@ -3,9 +3,8 @@
 //
 
 #include "utils.hpp"
-#include <stdio.h>
+#include <cstdio>
 #include <functional>
-#include <cassert>
 #include "globals/globals.hpp"
 #include "macros/functions.hpp"
 

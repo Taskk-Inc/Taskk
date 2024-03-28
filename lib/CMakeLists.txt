@@ -24,7 +24,6 @@ add_library(lib SHARED
         src/data_types/data_types.hpp
         # globals
         src/globals/globals.hpp
-        src/globals/globals.cpp
         # utils
         src/utils/utils.cpp
         src/utils/utils.hpp

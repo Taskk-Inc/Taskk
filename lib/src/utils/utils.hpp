@@ -6,7 +6,7 @@
 
 #include <chrono>
 #include <string>
-#include <assert.h>
+#include <cassert>
 #include "data_types/data_types.hpp"
 
 namespace utils

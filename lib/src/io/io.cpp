@@ -3,9 +3,9 @@
 //
 
 #include "io.hpp"
-#include <assert.h>
-#include <stdio.h>
-#include <time.h>
+#include <cstdio>
+#include <ctime>
+#include <cassert>
 #include "data_types/data_types.hpp"
 
 io::save_session_error io::save_session(std::string json)

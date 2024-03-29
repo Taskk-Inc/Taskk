@@ -138,6 +138,7 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
     pushButton->setMinimumWidth(US / 5);
     pushButton->setMaximumWidth(US / 5);
     pushButton->setMinimumHeight(25);
+    pushButton->setObjectName("Transparent");
 
     pushButton->setStyleSheet(
             "QPushButton {border: transparent;}"
@@ -148,6 +149,8 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
     operationBar->mainButton = pushButton;
     operationBar->endUS = end;
     operationBar->startUS = start;
+    pushButton->microLabel = nullptr;
+    pushButton->nameLabel = nullptr;
 
     bars.push_back(operationBar);
 

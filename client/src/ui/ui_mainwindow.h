@@ -37,7 +37,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_5;
-    PDataScrollBar *infoScrollArea;
+    PDataScrollBar* infoScrollArea;
     QWidget *scrollAreaWidgetContents_2;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *HLayout1;
@@ -197,7 +197,8 @@ public:
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class MainWindow: public Ui_MainWindow {
+    };
 } // namespace Ui
 
 QT_END_NAMESPACE

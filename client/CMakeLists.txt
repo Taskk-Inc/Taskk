@@ -28,18 +28,29 @@ add_executable(client src/main.cpp
         src/ui/Handlers/OperationsBarData/OperationsBarData.cpp
         src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
         src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
+        src/ui/Handlers/DataHandler/DataHandler.hpp
+        src/ui/Handlers/DataHandler/DataHandler.hpp
 )
 
 target_include_directories(client PRIVATE
         src
         src/ui
-        libs/lua/include)
+        libs/jansson/include)
+
+
+
+include(FetchContent)
+
+FetchContent_Declare(json URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz)
+FetchContent_MakeAvailable(json)
 
 target_link_libraries(client
         Qt::Core
         Qt::Gui
         Qt::Widgets
         Qt::Charts
+        ${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a
+        nlohmann_json::nlohmann_json
 )
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)

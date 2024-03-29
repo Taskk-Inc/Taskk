@@ -1,9 +1,11 @@
+#pragma once
 #include "mainwindow.h"
 #include <vector>
 #include <iostream>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include "../../ui_mainwindow.h"
+#include <QLabel>
+//#include "../../ui_mainwindow.h"
 
 struct OperationBar
 {
@@ -11,7 +13,7 @@ struct OperationBar
     float startUS;
     float endUS;
 
-    std::vector<OperationBar> bars;
+    //std::vector<OperationBar> bars;
 };
 
 struct OperationData
@@ -31,23 +33,35 @@ struct HorizontalBoxData
     std::vector<POperationButton*> buttons;
 };
 
+struct SessionStruct
+{
+    int64_t start_timestamp;
+    int64_t end_timestamp;
+
+    std::vector<OperationData> operations;
+};
+
 namespace ui::OperationsBarDataHandler
 {
     inline std::vector<OperationBar*> bars;
     inline OperationBar* selected;
     inline std::vector<HorizontalBoxData*> horizontalLayouts;
+    inline float zoomAmount = 1;
 
     void CreateHLayout();
     void InsertInLayout(QWidget* object, int index);
 
     void CreateBar(float start, float end, QString barName, int layoutIndex);
     void CreateBar(float start, float end, QString barName, std::vector<OperationData> subData);
+    void UpdateBarZoom();
 
     void CreateTransparentBar(float start, float end, int layoutIndex);
 
     void FillSpace(int layoutIndex, float endFill);
     void CreateDeepOperation(OperationData data, int layoutIndex);
     void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData);
+    void InitSession(SessionStruct session);
+    void Clear();
 
     void InitScrollbarFunctionalities();
 }
@@ -70,6 +84,8 @@ private:
     bool selected = false;
 public:
     OperationBar* operationBar;
+    QLabel* nameLabel;
+    QLabel* microLabel;
 
     explicit POperationButton(QWidget *parent = nullptr): QPushButton(parent) {};
     explicit POperationButton(const QString &text, QWidget *parent = nullptr): QPushButton(text, parent) {};

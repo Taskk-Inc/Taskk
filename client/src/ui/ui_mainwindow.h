@@ -37,7 +37,7 @@ class Ui_MainWindow
 public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_5;
-    PDataScrollBar *infoScrollArea;
+    PDataScrollBar* infoScrollArea;
     QWidget *scrollAreaWidgetContents_2;
     QVBoxLayout *verticalLayout_4;
     QHBoxLayout *HLayout1;
@@ -186,7 +186,7 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
+        MainWindow->setWindowTitle(QCoreApplication::translate("Taskk Profiler", "Taskk Profiler", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_4->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_5->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
@@ -197,7 +197,8 @@ public:
 };
 
 namespace Ui {
-    class MainWindow: public Ui_MainWindow {};
+    class MainWindow: public Ui_MainWindow {
+    };
 } // namespace Ui
 
 QT_END_NAMESPACE

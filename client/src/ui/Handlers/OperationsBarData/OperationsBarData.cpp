@@ -1,6 +1,7 @@
 #include <QLabel>
 #include <QShortcut>
 #include "OperationsBarData.h"
+#include "../../ui_mainwindow.h"
 //
 // Created by VERB1807 on 3/26/2024.
 //
@@ -9,11 +10,12 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 {
     OperationBar * operationBar = new OperationBar();
 	float US = end - start;
+    std::cout << barName.toStdString() << ":" << US << std::endl;
 
 	POperationButton * pushButton = new POperationButton();
 
-	pushButton->setMinimumWidth(US * 2);
-    pushButton->setMaximumWidth(US * 2);
+	pushButton->setMinimumWidth(US / 5);
+    pushButton->setMaximumWidth(US / 5);
 	pushButton->setMinimumHeight(25);
 
 	pushButton->setStyleSheet(
@@ -29,7 +31,7 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 	testLabel2->setStyleSheet("font-weight: bold;");
 
 	QLabel * testLabel3 = new QLabel(QString::number(US).append(" μs"));
-	testLabel3->move(US * 2 - 60, 0);
+	testLabel3->move(US / 5 - 60, 0);
 	testLabel3->setMinimumWidth(50);
 	testLabel3->setMinimumHeight(23);
 	testLabel3->setAlignment(Qt::AlignCenter | Qt::AlignRight);
@@ -38,6 +40,8 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 	operationBar->mainButton = pushButton;
 	operationBar->startUS = start;
 	operationBar->endUS = end;
+    pushButton->nameLabel = testLabel2;
+    pushButton->microLabel = testLabel3;
 
     pushButton->operationBar = operationBar;
 	bars.push_back(operationBar);
@@ -61,7 +65,8 @@ void ui::OperationsBarDataHandler::FillSpace(int layoutIndex, float endFill)
             float endFloat = horizontalLayouts[layoutIndex]->buttons[horizontalLayouts[layoutIndex]->buttons.size()-1]->operationBar->endUS;
             if (endFill > endFloat)
                 ui::OperationsBarDataHandler::CreateTransparentBar(endFloat, endFill, layoutIndex);
-        }
+        } else
+            ui::OperationsBarDataHandler::CreateTransparentBar(0, endFill, layoutIndex);
     }
     else if (endFill != 0)
     {
@@ -90,6 +95,39 @@ void ui::OperationsBarDataHandler::CreateDeepOperation(OperationData data, int l
         ui::OperationsBarDataHandler::CreateDeepOperation(data2, layoutIndex+1);
 }
 
+void ui::OperationsBarDataHandler::Clear()
+{
+    for (auto info: ui::OperationsBarDataHandler::bars)
+    {
+        for (auto childObject: info->mainButton->children())
+            childObject->setParent(nullptr);
+        info->mainButton->setParent(nullptr);
+    }
+   ui::OperationsBarDataHandler::bars.clear();
+
+    for (auto info: ui::OperationsBarDataHandler::horizontalLayouts)
+    {
+        for (auto childObject: info->buttons)
+            childObject->setParent(nullptr);
+        info->buttons.clear();
+    }
+}
+
+void ui::OperationsBarDataHandler::UpdateBarZoom()
+{
+    for (auto bar: ui::OperationsBarDataHandler::bars) {
+        float US = bar->endUS - bar->startUS;
+        US /= 5;
+        US *= ui::OperationsBarDataHandler::zoomAmount;
+        bar->mainButton->setMinimumWidth(US);
+        bar->mainButton->setMaximumWidth(US);
+
+        if (bar->mainButton->nameLabel == nullptr || bar->mainButton->microLabel == nullptr) continue;
+
+        bar->mainButton->microLabel->move(US - 60, 0);
+    }
+}
+
 void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, int layoutIndex)
 {
     OperationBar * operationBar = new OperationBar();
@@ -97,9 +135,10 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
 
     POperationButton * pushButton = new POperationButton();
     pushButton->operationBar = operationBar;
-    pushButton->setMinimumWidth(US * 2);
-    pushButton->setMaximumWidth(US * 2);
+    pushButton->setMinimumWidth(US / 5);
+    pushButton->setMaximumWidth(US / 5);
     pushButton->setMinimumHeight(25);
+    pushButton->setObjectName("Transparent");
 
     pushButton->setStyleSheet(
             "QPushButton {border: transparent;}"
@@ -108,6 +147,10 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
     pushButton->setFocusPolicy(Qt::NoFocus);
 
     operationBar->mainButton = pushButton;
+    operationBar->endUS = end;
+    operationBar->startUS = start;
+    pushButton->microLabel = nullptr;
+    pushButton->nameLabel = nullptr;
 
     bars.push_back(operationBar);
 
@@ -158,4 +201,12 @@ void ui::OperationsBarDataHandler::InitScrollbarFunctionalities()
 //    QObject::connect(shortcut, SIGNAL(activated()), e, SLOT(Test()));
 
 //    QObject::connect(ui::mainWindow->infoScrollArea, QWidget::m)
+}
+
+void ui::OperationsBarDataHandler::InitSession(SessionStruct session) {
+    ui::OperationsBarDataHandler::Clear();
+    ui::OperationsBarDataHandler::zoomAmount = 1;
+    for (auto s : session.operations) {
+        ui::OperationsBarDataHandler::InitOperation(s.start, s.end, s.operationName, s.subData);
+    }
 }

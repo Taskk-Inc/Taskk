@@ -96,3 +96,7 @@ data_types::timestamp_operation_pair * utils::find_latest_ongoing_operation()
 
 	return (data_types::timestamp_operation_pair *)latest_pair;
 }
+
+std::shared_ptr<data_types::custom_operation_data> utils::make_shared_operation_data()
+{	return { (data_types::custom_operation_data *)malloc(sizeof(data_types::custom_operation_data)), free };
+}

@@ -10,6 +10,15 @@
 #include "utils/utils.hpp"
 #include "io/io.hpp"
 #include "json/json.hpp"
+#include "macros/custom_types.hpp"
+
+#define DEFINE_ATTACHED_DATA_FUNC(actual_type, api_type) \
+	void logic::attach_operation_##api_type(actual_type data) \
+	{	auto operation_data = utils::make_shared_operation_data(); \
+		operation_data->type = data_types::custom_operation_data::data_type::api_type; \
+		operation_data->data_##api_type = data; \
+		attach_operation_data(operation_data); \
+	}
 
 void logic::ensure_initialization()
 {	static bool initialized = false;
@@ -44,6 +53,15 @@ void logic::begin_operation(std::string label)
 		latest_pair->second.sub_operations[timestamp] = operation;
 	else
 		globals::session.operations[timestamp] = operation;
+}
+
+DEFINE_ATTACHED_DATA_FUNC(std::string, string)
+DEFINE_ATTACHED_DATA_FUNC(json_int_t, integer)
+DEFINE_ATTACHED_DATA_FUNC(double, real)
+DEFINE_ATTACHED_DATA_FUNC(bool, boolean)
+
+void logic::attach_operation_data(std::shared_ptr<data_types::custom_operation_data> data)
+{
 }
 
 void logic::end_operation(std::string label)

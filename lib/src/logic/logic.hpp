@@ -16,7 +16,6 @@ namespace logic
 	void begin_operation(std::string label);
 	///  end a recorded taskk operation
 	void end_operation(std::string label);
-
 	/// exit callback, saves the profiling session into a file named correspondingly to the current time and date
 	void shutdown();
 }

@@ -3,7 +3,7 @@
 //
 
 #include "utils.hpp"
-#include <cstdio>
+#include <iostream>
 #include <functional>
 #include "globals/globals.hpp"
 #include "macros/functions.hpp"
@@ -19,8 +19,20 @@ void utils::log_and_abort(std::string msg)
 
 void utils::finish_operation(data_types::timestamp_operation_pair & pair)
 {	auto & [timestamp, operation] = pair;
+
+	// compute operation duration
+	auto from = timestamp;
+	auto to = utils::get_unix_time() - globals::session.start_timestamp;
+	auto duration = to - from;
+
+	// update the pair's operation
 	operation.finished = true;
-	operation.duration = utils::get_unix_time() - (timestamp + globals::session.start_timestamp);
+	operation.duration = duration;
+
+	// log
+	std::cout << "Taskk : ending operation '" << operation.label
+			  << "' (" << from.count() << " -> " << to.count() << " = " << duration.count() << ")\n";
+
 	for(auto & sub_operation_pair : operation.sub_operations)
 		finish_operation((data_types::timestamp_operation_pair &)sub_operation_pair);
 }

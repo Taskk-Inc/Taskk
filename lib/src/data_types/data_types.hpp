@@ -8,9 +8,12 @@
 #include <chrono>
 #include <map>
 #include <string>
+#include <jansson_config.h>
 
 namespace data_types
-{	struct operation;
+{	// forward declarations
+	struct operation;
+
 	/// a timestamp/operation pair
 	typedef std::pair<std::chrono::microseconds, operation> timestamp_operation_pair;
 
@@ -27,6 +30,21 @@ namespace data_types
 		timestamp_operation_map sub_operations;
 		/// not encoded into json, this value indicates whether this operation is finished
 		bool finished = false;
+	};
+
+	/// custom operation data
+	struct custom_operation_data
+	{	/// valid custom data types
+		enum class data_type { string, integer, real, boolean, };
+		/// the type op this data
+		data_type type;
+		// data member
+		union
+		{	std::string data_string;
+			json_int_t data_integer;
+			double data_real;
+			bool data_boolean;
+		};
 	};
 
 	/// a profiling session

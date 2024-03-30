@@ -5,8 +5,7 @@
 #pragma once
 
 #include "taskk/c/taskk_api.h"
-
-enum class taskk_data_type { taskk_string, taskk_integer, taskk_real, taskk_boolean, };
+#include <stdbool.h>
 
 TASKK_API void taskk_begin_operation(char * name);
 TASKK_API void taskk_attach_string(char * data);

@@ -5,6 +5,7 @@
 #include "switch.h"
 #include <taskk.h>
 #include <stdio.h>
+#include <math.h>
 
 int c_main()
 {	puts("running the c tester");
@@ -15,6 +16,11 @@ int c_main()
 		taskk_end_operation("operation_1_1");
 		// operation 1.2
 		taskk_begin_operation("operation_1_2");
+		taskk_attach_string("my very cool log");
+		taskk_attach_integer(1875);
+		taskk_attach_real(M_PI);
+		taskk_attach_boolean(false);
+		taskk_attach_boolean(true);
 		taskk_end_operation("operation_1_2");
 	}
 	taskk_end_operation("operation_1");

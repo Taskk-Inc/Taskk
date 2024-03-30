@@ -10,7 +10,7 @@
 #include <string>
 
 namespace data_types
-{struct operation;
+{	struct operation;
 	/// a timestamp/operation pair
 	typedef std::pair<std::chrono::microseconds, operation> timestamp_operation_pair;
 
@@ -28,7 +28,6 @@ namespace data_types
 		/// not encoded into json, this value indicates whether this operation is finished
 		bool finished = false;
 	};
-
 
 	/// a profiling session
 	struct session

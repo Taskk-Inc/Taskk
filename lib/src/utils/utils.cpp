@@ -34,7 +34,10 @@ void utils::finish_operation(data_types::timestamp_operation_pair & pair)
 			  << "' (" << from.count() << " -> " << to.count() << " = " << duration.count() << ")\n";
 
 	for(auto & sub_operation_pair : operation.sub_operations)
-		finish_operation((data_types::timestamp_operation_pair &)sub_operation_pair);
+		if(!sub_operation_pair.second.finished)
+			utils::log_and_abort(make_string("Taskk : invalid attempt to end operation '"
+											 << operation.label << "' before its sub-operation '"
+											 << sub_operation_pair.second.label << '\''));
 }
 
 data_types::timestamp_operation_pair & utils::find_ongoing_operation(std::string label)

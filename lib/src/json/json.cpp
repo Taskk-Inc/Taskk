@@ -48,6 +48,7 @@ json_t * json::encode_operation(data_types::timestamp_operation_pair pair_data)
 	json_object_set_new(operation, "label", json_string(pair_data.second.label.c_str()));
 
 	// encode the duration
+	printf("Taskk : [json encoding] encoding operation '%s' with duration %lli\n", pair_data.second.label.c_str(), pair_data.second.duration.count());
 	json_object_set_new(operation, "duration", json_integer(pair_data.second.duration.count()));
 
 	// encode sub-operations

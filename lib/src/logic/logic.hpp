@@ -17,11 +17,11 @@ namespace logic
 	///  begin a recorded taskk operation
 	void begin_operation(std::string label);
 	// custom data attachment functions
-	void attach_operation_string(std::string data);
-	void attach_operation_integer(json_int_t data);
-	void attach_operation_real(double data);
-	void attach_operation_boolean(bool data);
-	void attach_operation_data(std::shared_ptr<data_types::custom_operation_data> data);
+	void attach_operation_string(std::string label, std::string data);
+	void attach_operation_integer(std::string label, json_int_t data);
+	void attach_operation_real(std::string label, double data);
+	void attach_operation_boolean(std::string label, bool data);
+	void attach_operation_data(std::shared_ptr<data_types::attached_operation_data> data);
 	///  end a recorded taskk operation
 	void end_operation(std::string label);
 	/// exit callback, saves the profiling session into a file named correspondingly to the current time and date

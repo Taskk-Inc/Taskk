@@ -9,20 +9,20 @@ __declspec(dllexport) void taskk_begin_operation(char * name)
 {	logic::begin_operation(name);
 }
 
-__declspec(dllexport) void taskk_attach_string(char * data)
-{	logic::attach_operation_string(data);
+__declspec(dllexport) void taskk_attach_string(char * label, char * data)
+{	logic::attach_operation_string(label, data);
 }
 
-__declspec(dllexport) void taskk_attach_integer(int data)
-{	logic::attach_operation_integer(data);
+__declspec(dllexport) void taskk_attach_integer(char * label, int data)
+{	logic::attach_operation_integer(label, data);
 }
 
-__declspec(dllexport) void taskk_attach_real(double data)
-{	logic::attach_operation_real(data);
+__declspec(dllexport) void taskk_attach_real(char * label, double data)
+{	logic::attach_operation_real(label, data);
 }
 
-__declspec(dllexport) void taskk_attach_boolean(bool data)
-{	logic::attach_operation_boolean(data);
+__declspec(dllexport) void taskk_attach_boolean(char * label, bool data)
+{	logic::attach_operation_boolean(label, data);
 }
 
 __declspec(dllexport) void taskk_end_operation(char * name)

@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.27)
 project(lib)
 
-set(CMAKE_CXX_STANDARD 17)
+# if it wasn't for 'using enum' c++20 wouldn't be required, it shouldn't be that hard to backport
+set(CMAKE_CXX_STANDARD 20)
 
 add_library(lib SHARED
         # api declarations

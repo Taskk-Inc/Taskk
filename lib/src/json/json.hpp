@@ -18,4 +18,5 @@ namespace json
 	json_t * encode_session(data_types::session);
 	json_t * encode_operation(data_types::timestamp_operation_pair);
 	json_t * encode_operation_list(data_types::timestamp_operation_map);
+	json_t * encode_operation_attached_data(data_types::attached_data_list);
 }

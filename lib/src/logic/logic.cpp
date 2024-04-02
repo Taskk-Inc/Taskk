@@ -13,9 +13,10 @@
 #include "macros/custom_types.hpp"
 
 #define DEFINE_ATTACHED_DATA_FUNC(actual_type, api_type) \
-	void logic::attach_operation_##api_type(actual_type data) \
+	void logic::attach_operation_##api_type(std::string label, actual_type data) \
 	{	auto operation_data = utils::make_shared_operation_data(); \
-		operation_data->type = data_types::custom_operation_data::data_type::api_type; \
+		operation_data->label = label; \
+		operation_data->type = data_types::attached_operation_data::data_type::api_type; \
 		operation_data->data_##api_type = data; \
 		attach_operation_data(operation_data); \
 	}
@@ -60,8 +61,11 @@ DEFINE_ATTACHED_DATA_FUNC(json_int_t, integer)
 DEFINE_ATTACHED_DATA_FUNC(double, real)
 DEFINE_ATTACHED_DATA_FUNC(bool, boolean)
 
-void logic::attach_operation_data(std::shared_ptr<data_types::custom_operation_data> data)
-{
+void logic::attach_operation_data(std::shared_ptr<data_types::attached_operation_data> data)
+{	data_types::timestamp_operation_pair * pair = utils::find_latest_ongoing_operation();
+	if(!pair)
+		utils::log_and_abort("invalid attempt to attach operation data without an active operation");
+	pair->second.attached_data.push_back(data);
 }
 
 void logic::end_operation(std::string label)

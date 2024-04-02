@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <chrono>
+#include <memory>
 #include <map>
 #include <string>
 #include <jansson_config.h>
@@ -20,6 +21,9 @@ namespace data_types
 	/// a timestamp/operation map
 	typedef std::map<std::chrono::microseconds, operation> timestamp_operation_map;
 
+	/// a list of attached operation data shared pointers
+	typedef std::vector<std::shared_ptr<struct attached_operation_data>> attached_data_list;
+
 	/// a profiled operation
 	struct operation
 	{	/// this operation's name
@@ -28,16 +32,20 @@ namespace data_types
 		std::chrono::microseconds duration;
 		/// unix time, relative to the session's start timestamp
 		timestamp_operation_map sub_operations;
+		/// attached operation data
+		attached_data_list attached_data;
 		/// not encoded into json, this value indicates whether this operation is finished
 		bool finished = false;
 	};
 
-	/// custom operation data
-	struct custom_operation_data
+	/// attached operation data
+	struct attached_operation_data
 	{	/// valid custom data types
 		enum class data_type { string, integer, real, boolean, };
 		/// the type op this data
 		data_type type;
+		/// the label shown in the client
+		std::string label;
 		// data member
 		union
 		{	std::string data_string;

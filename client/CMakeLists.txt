@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(client)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
@@ -30,6 +30,7 @@ add_executable(client src/main.cpp
         src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
         src/ui/Handlers/DataHandler/DataHandler.hpp
         src/ui/Handlers/DataHandler/DataHandler.hpp
+        Resources/icon.rc
 )
 
 target_include_directories(client PRIVATE
@@ -52,6 +53,8 @@ target_link_libraries(client
         ${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a
         nlohmann_json::nlohmann_json
 )
+
+target_compile_options(client PRIVATE -fopenmp)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

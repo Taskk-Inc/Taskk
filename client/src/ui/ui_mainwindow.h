@@ -58,12 +58,19 @@ public:
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
+    QMenu *menuFile;
+    QAction *actionImport;
+
     void setupUi(QMainWindow *MainWindow)
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName("MainWindow");
         ui::mainWindow = this;
         MainWindow->resize(1130, 535);
+
+        actionImport = new QAction(MainWindow);
+        actionImport->setObjectName("actionImport");
+
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName("centralwidget");
         verticalLayout_5 = new QVBoxLayout(centralwidget);
@@ -98,7 +105,6 @@ public:
         HSpacer1 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         HLayout1->addItem(HSpacer1);
-
 
         verticalLayout_4->addLayout(HLayout1);
 
@@ -135,9 +141,7 @@ public:
 
         verticalLayout_3->addItem(verticalSpacer_2);
 
-
         horizontalLayout_3->addLayout(verticalLayout_3);
-
 
         horizontalLayout_5->addLayout(horizontalLayout_3);
 
@@ -159,12 +163,9 @@ public:
 
         verticalLayout->addItem(verticalSpacer_3);
 
-
         horizontalLayout_4->addLayout(verticalLayout);
 
-
         horizontalLayout_5->addLayout(horizontalLayout_4);
-
 
         verticalLayout_5->addLayout(horizontalLayout_5);
 
@@ -173,11 +174,17 @@ public:
         MainWindow->setCentralWidget(centralwidget);
         menubar = new QMenuBar(MainWindow);
         menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 1130, 21));
-        MainWindow->setMenuBar(menubar);
+        menubar->setGeometry(QRect(0, 0, 5130, 21));
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName("statusbar");
         MainWindow->setStatusBar(statusbar);
+
+        menuFile = new QMenu(menubar);
+        menuFile->setObjectName("menuFile");
+
+        menubar->addAction(menuFile->menuAction());
+        menubar->setContentsMargins(0, 0, 0, 0);
+        menuFile->addAction(actionImport);
 
         retranslateUi(MainWindow);
 
@@ -187,11 +194,13 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("Taskk Profiler", "Taskk Profiler", nullptr));
+        actionImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_4->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_5->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_3->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         pushButton_2->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
     } // retranslateUi
 
 };

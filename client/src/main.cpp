@@ -5,7 +5,6 @@
 
 void init()
 {
-    ui::OperationsBarDataHandler::InitScrollbarFunctionalities();
 }
 
 int main(int argc, char * argv[])
@@ -43,8 +42,6 @@ int main(int argc, char * argv[])
 //    testData.subData = {{150, 190, "eee", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", {{155, 190, "s", {{160, 190, "s", {{165, 190, "s", {{170, 190, "s", }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}};
 //
 //    ui::OperationsBarDataHandler::InitOperation(0, 4000, "ASD",{testData, deepData});
-//
-//    ui::OperationsBarDataHandler::InitScrollbarFunctionalities();
 
     init();
 

@@ -1,5 +1,5 @@
 # Taskk Multi-Language Software Profiler
-wip.
+watch me wip.
 
 ## Building
 In its current state this projects builds with Qt's mingw-w64 v11.2.0 
@@ -32,7 +32,8 @@ between C and C++ in ``tester/src/switch.h``, just edit the
 ``#define USE_CXX 0`` line to ``#define USE_CXX 1`` for C++.
 
 ### 4. Compiling the client
-wip.
+wip. \
+run .exe
 
 ## Any Questions ? [Contact Us](mailto:berriot.cesar@gmail.com)
 

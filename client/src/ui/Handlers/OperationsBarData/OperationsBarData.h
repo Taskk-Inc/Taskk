@@ -48,11 +48,14 @@ namespace ui::OperationsBarDataHandler
     inline std::vector<HorizontalBoxData*> horizontalLayouts;
     inline float zoomAmount = 1;
 
+    inline struct {
+        float ratioPixels = 500;
+    } Settings;
+
     void CreateHLayout();
     void InsertInLayout(QWidget* object, int index);
 
     void CreateBar(float start, float end, QString barName, int layoutIndex);
-    void CreateBar(float start, float end, QString barName, std::vector<OperationData> subData);
     void UpdateBarZoom();
 
     void CreateTransparentBar(float start, float end, int layoutIndex);
@@ -62,20 +65,7 @@ namespace ui::OperationsBarDataHandler
     void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData);
     void InitSession(SessionStruct session);
     void Clear();
-
-    void InitScrollbarFunctionalities();
 }
-
-class ScrollBarFunctionalities: public QObject
-{
-    Q_OBJECT
-
-public slots:
-    void Test()
-    {
-        std::cout << "w" << std::endl;
-    }
-};
 
 class POperationButton: public QPushButton
 {

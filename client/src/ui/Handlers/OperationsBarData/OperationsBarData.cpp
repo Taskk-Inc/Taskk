@@ -10,12 +10,14 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 {
     OperationBar * operationBar = new OperationBar();
 	float US = end - start;
+    float totalPixels = US / ui::OperationsBarDataHandler::Settings.ratioPixels;
+
     std::cout << barName.toStdString() << ":" << US << std::endl;
 
 	POperationButton * pushButton = new POperationButton();
 
-	pushButton->setMinimumWidth(US / 5);
-    pushButton->setMaximumWidth(US / 5);
+	pushButton->setMinimumWidth(totalPixels);
+    pushButton->setMaximumWidth(totalPixels);
 	pushButton->setMinimumHeight(25);
 
 	pushButton->setStyleSheet(
@@ -30,8 +32,8 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 	testLabel2->setParent(pushButton);
 	testLabel2->setStyleSheet("font-weight: bold;");
 
-	QLabel * testLabel3 = new QLabel(QString::number(US).append(" μs"));
-	testLabel3->move(US / 5 - 60, 0);
+    QLabel * testLabel3 = new QLabel(QString::number(US).append(" μs"));
+	testLabel3->move(totalPixels - 60, 0);
 	testLabel3->setMinimumWidth(50);
 	testLabel3->setMinimumHeight(23);
 	testLabel3->setAlignment(Qt::AlignCenter | Qt::AlignRight);
@@ -49,11 +51,6 @@ void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString bar
 	QObject::connect(pushButton, QPushButton::clicked, pushButton, &POperationButton::onClick);
 
     InsertInLayout(pushButton, layoutIndex);
-}
-
-void ui::OperationsBarDataHandler::CreateBar(float start, float end, QString barName, std::vector<OperationData> subData)
-{
-//	OperationBar * createdBar = bars.at(bars.size() - 1);
 }
 
 void ui::OperationsBarDataHandler::FillSpace(int layoutIndex, float endFill)
@@ -117,7 +114,7 @@ void ui::OperationsBarDataHandler::UpdateBarZoom()
 {
     for (auto bar: ui::OperationsBarDataHandler::bars) {
         float US = bar->endUS - bar->startUS;
-        US /= 5;
+        US /= ui::OperationsBarDataHandler::Settings.ratioPixels;
         US *= ui::OperationsBarDataHandler::zoomAmount;
         bar->mainButton->setMinimumWidth(US);
         bar->mainButton->setMaximumWidth(US);
@@ -125,6 +122,13 @@ void ui::OperationsBarDataHandler::UpdateBarZoom()
         if (bar->mainButton->nameLabel == nullptr || bar->mainButton->microLabel == nullptr) continue;
 
         bar->mainButton->microLabel->move(US - 60, 0);
+
+        int buttonWidth = bar->mainButton->rect().width();
+        int nameLabelWidth = bar->mainButton->nameLabel->fontMetrics().boundingRect(bar->mainButton->nameLabel->text()).width();
+        int microLabelWidth = bar->mainButton->microLabel->fontMetrics().boundingRect(bar->mainButton->microLabel->text()).width();
+
+        bar->mainButton->microLabel->setVisible(microLabelWidth+nameLabelWidth+25 < buttonWidth);
+        bar->mainButton->nameLabel->setVisible(nameLabelWidth+20 < buttonWidth);
     }
 }
 
@@ -132,11 +136,12 @@ void ui::OperationsBarDataHandler::CreateTransparentBar(float start, float end, 
 {
     OperationBar * operationBar = new OperationBar();
     float US = end - start;
+    float totalPixels = US / ui::OperationsBarDataHandler::Settings.ratioPixels;
 
     POperationButton * pushButton = new POperationButton();
     pushButton->operationBar = operationBar;
-    pushButton->setMinimumWidth(US / 5);
-    pushButton->setMaximumWidth(US / 5);
+    pushButton->setMinimumWidth(totalPixels);
+    pushButton->setMaximumWidth(totalPixels );
     pushButton->setMinimumHeight(25);
     pushButton->setObjectName("Transparent");
 
@@ -191,16 +196,6 @@ void ui::OperationsBarDataHandler::CreateHLayout()
 	ui::mainWindow->verticalLayout_4->addItem(ui::mainWindow->verticalSpacer);
 
     ui::OperationsBarDataHandler::horizontalLayouts.push_back(boxData);
-}
-
-void ui::OperationsBarDataHandler::InitScrollbarFunctionalities()
-{
-//    PShortcuts* e = new PShortcuts;
-//
-//    QShortcut *shortcut = new QShortcut(QKeySequence("Ctrl+O"), ui::mainWindow->infoScrollArea);
-//    QObject::connect(shortcut, SIGNAL(activated()), e, SLOT(Test()));
-
-//    QObject::connect(ui::mainWindow->infoScrollArea, QWidget::m)
 }
 
 void ui::OperationsBarDataHandler::InitSession(SessionStruct session) {

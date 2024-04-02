@@ -87,7 +87,7 @@ private:
         ui::OperationsBarDataHandler::UpdateBarZoom();
     };
     void ZoomOut(){
-        if ( ui::OperationsBarDataHandler::zoomAmount <= 0.1) return;
+        if (ui::OperationsBarDataHandler::zoomAmount <= 0.05f) return;
         ui::OperationsBarDataHandler::zoomAmount -= zoomIncrease;
         ui::OperationsBarDataHandler::UpdateBarZoom();
     };

@@ -82,6 +82,8 @@ json_t * json::encode_operation_attached_data(data_types::attached_data_list dat
 	for(auto element : data)
 	{	/// container object with fields 'label' and 'data'
 		json_t * container = json_object();
+		// timestamp
+		json_object_set_new(container, "timestamp", json_integer(element->timestamp.count()));
 		// label
 		json_object_set_new(container, "label", json_string(element->label.c_str()));
 		// data

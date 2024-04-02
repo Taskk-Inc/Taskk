@@ -44,6 +44,8 @@ namespace data_types
 		enum class data_type { string, integer, real, boolean, };
 		/// the type op this data
 		data_type type;
+		/// timestamp, relative to the session start timestamp
+		std::chrono::microseconds timestamp;
 		/// the label shown in the client
 		std::string label;
 		// data member

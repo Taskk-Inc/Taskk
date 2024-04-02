@@ -57,7 +57,7 @@ void logic::begin_operation(std::string label)
 }
 
 DEFINE_ATTACHED_DATA_FUNC(std::string, string)
-DEFINE_ATTACHED_DATA_FUNC(json_int_t, integer)
+DEFINE_ATTACHED_DATA_FUNC(int, integer)
 DEFINE_ATTACHED_DATA_FUNC(double, real)
 DEFINE_ATTACHED_DATA_FUNC(bool, boolean)
 

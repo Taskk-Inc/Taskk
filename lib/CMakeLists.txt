@@ -37,6 +37,7 @@ add_library(lib SHARED
         #macros
         src/macros/custom_types.hpp
         src/macros/functions.hpp
+        include/taskk/cxx/templates/attach_auto.hpp
 )
 
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")

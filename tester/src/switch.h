@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#define USE_CXX 0
+#define USE_CXX 1
 
 #if USE_CXX
 	#define c_main disabled_main

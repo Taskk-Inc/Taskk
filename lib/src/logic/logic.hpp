@@ -18,7 +18,7 @@ namespace logic
 	void begin_operation(std::string label);
 	// custom data attachment functions
 	void attach_operation_string(std::string label, std::string data);
-	void attach_operation_integer(std::string label, json_int_t data);
+	void attach_operation_integer(std::string label, int data);
 	void attach_operation_real(std::string label, double data);
 	void attach_operation_boolean(std::string label, bool data);
 	void attach_operation_data(std::shared_ptr<data_types::attached_operation_data> data);

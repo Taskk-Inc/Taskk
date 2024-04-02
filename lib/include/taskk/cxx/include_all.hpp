@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <string>
 #include "data_types/data_types.hpp"
 #include "macros/make_scope_operation.hpp"
 #include "macros/taskk_api.hpp"

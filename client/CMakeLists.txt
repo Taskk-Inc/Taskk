@@ -24,20 +24,22 @@ add_executable(client src/main.cpp
         src/ui/mainwindow.h
         src/ui/mainwindow.cpp
         src/ui/mainwindow.ui
-        src/ui/Handlers/OperationsBarData/OperationsBarData.h
-        src/ui/Handlers/OperationsBarData/OperationsBarData.cpp
-        src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
-        src/ui/Handlers/CustomQTClasses/PDataScrollBar.hpp
-        src/ui/Handlers/DataHandler/DataHandler.hpp
-        src/ui/Handlers/DataHandler/DataHandler.hpp
+        src/Handlers/OperationsBarData/OperationsBarData.h
+        src/Handlers/OperationsBarData/OperationsBarData.cpp
+        src/ui/QTClasses/PDataScrollBar.hpp
+        src/ui/QTClasses/PDataScrollBar.hpp
+        src/Handlers/DataHandler/DataHandler.hpp
+        src/Handlers/DataHandler/DataHandler.hpp
         Resources/icon.rc
+        src/ui/Widgets/TimelineWidget.hpp
+        src/ui/Widgets/MenuBar.hpp
 )
 
 target_include_directories(client PRIVATE
         src
         src/ui
+        libs/ads/include
         libs/jansson/include)
-
 
 
 include(FetchContent)
@@ -51,10 +53,9 @@ target_link_libraries(client
         Qt::Widgets
         Qt::Charts
         ${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a
+        ${PROJECT_SOURCE_DIR}/libs/ads/bin/libqtadvanceddocking.a
         nlohmann_json::nlohmann_json
 )
-
-target_compile_options(client PRIVATE -fopenmp)
 
 if (WIN32 AND NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(DEBUG_SUFFIX)

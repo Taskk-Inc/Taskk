@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <ads/DockManager.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -20,7 +21,11 @@ public:
     void dragEnterEvent(QDragEnterEvent *event);
     virtual void dropEvent(QDropEvent *event);
 
+    void ImportTaskkFile(std::string filePath);
+
+    ads::CDockManager* GetDockManager() {return m_DockManager;}
 private:
     Ui::MainWindow *ui;
+    ads::CDockManager* m_DockManager;
 };
 #endif // MAINWINDOW_H

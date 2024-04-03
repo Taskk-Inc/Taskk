@@ -7,14 +7,31 @@
 #include <jansson.h>
 #include <fstream>
 #include "Handlers/DataHandler/DataHandler.hpp"
+#include "Widgets/TimelineWidget.hpp"
+#include "Widgets/MenuBar.hpp"
 #include <nlohmann/json.hpp>
 using nlohmann::json;
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    ads::CDockManager::setConfigFlag(ads::CDockManager::OpaqueSplitterResize, true);
+    ads::CDockManager::setConfigFlag(ads::CDockManager::XmlCompressionEnabled, false);
+    ads::CDockManager::setConfigFlag(ads::CDockManager::FocusHighlighting, true);
+    ads::CDockManager::setConfigFlag(ads::CDockManager::ActiveTabHasCloseButton, true);
+
+    m_DockManager = new ads::CDockManager(this);
+
+//    ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
+//    CentralDockWidget->setFeature(ads::CDockWidget::NoTab, true);
+//    m_DockManager->setCentralWidget(CentralDockWidget);
+
+    ui::MenuBar::Init();
+
+    ui::TimelineWidget::CreateWidget();
+    m_DockManager->addDockWidget(ads::TopDockWidgetArea, ui::TimelineWidget::dockWidget);
+
     ui->centralwidget->setAcceptDrops(true);
 }
 
@@ -41,12 +58,19 @@ void MainWindow::dropEvent(QDropEvent *event) {
     {
         QFile file (event->mimeData()->text().remove("file:///"));
 
-        std::ifstream f(file.fileName().toStdString());
-        json data = json::parse(f);
-        SessionStruct ses = DataHandler::ParseData(data);
-        ui::OperationsBarDataHandler::InitSession(ses);
+        ImportTaskkFile(file.fileName().toStdString());
+
+//        std::ifstream f(file.fileName().toStdString());
+//        json data = json::parse(f);
+//        SessionStruct ses = DataHandler::ParseData(data);
+//        ui::OperationsBarDataHandler::InitSession(ses);
 //        json_auto_t* jsonData = json_load_file(file.fileName().toStdString().c_str(), JSON_ALLOW_NUL, nullptr);
-//        std::cout << json_string_value(jsonData) << std::endl;
-//        std::cout << "ww" << std::endl;
     }
+}
+
+void MainWindow::ImportTaskkFile(std::string filePath) {
+    std::ifstream f(filePath);
+    json data = json::parse(f);
+    SessionStruct ses = DataHandler::ParseData(data);
+    ui::OperationsBarDataHandler::InitSession(ses);
 }

@@ -33,6 +33,7 @@ add_executable(client src/main.cpp
         Resources/icon.rc
         src/ui/Widgets/TimelineWidget.hpp
         src/ui/Widgets/MenuBar.hpp
+        src/ui/Widgets/ExtendedPropertiesWidget.hpp
 )
 
 target_include_directories(client PRIVATE

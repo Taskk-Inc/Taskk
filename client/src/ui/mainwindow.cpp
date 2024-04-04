@@ -8,6 +8,7 @@
 #include <fstream>
 #include "Handlers/DataHandler/DataHandler.hpp"
 #include "Widgets/TimelineWidget.hpp"
+#include "Widgets/ExtendedPropertiesWidget.hpp"
 #include "Widgets/MenuBar.hpp"
 #include <nlohmann/json.hpp>
 using nlohmann::json;
@@ -30,7 +31,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     ui::MenuBar::Init();
 
     ui::TimelineWidget::CreateWidget();
-    m_DockManager->addDockWidget(ads::TopDockWidgetArea, ui::TimelineWidget::dockWidget);
+    ui::ExtendedProperties::CreateWidget();
+
+    m_DockManager->addDockWidget(ads::CenterDockWidgetArea, ui::TimelineWidget::dockWidget);
+    m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedProperties::dockWidget);
 
     ui->centralwidget->setAcceptDrops(true);
 }

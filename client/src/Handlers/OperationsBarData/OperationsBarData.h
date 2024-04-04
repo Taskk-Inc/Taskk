@@ -13,7 +13,7 @@ struct OperationBar
     float startUS;
     float endUS;
 
-    //std::vector<OperationBar> bars;
+    std::vector<OperationBar> childOperations;
 };
 
 struct OperationData
@@ -44,6 +44,7 @@ struct SessionStruct
 namespace ui::OperationsBarDataHandler
 {
     inline std::vector<OperationBar*> bars;
+    inline std::vector<OperationBar*> hierarchyBars;
     inline OperationBar* selected;
     inline std::vector<HorizontalBoxData*> horizontalLayouts;
     inline float zoomAmount = 1;
@@ -55,16 +56,18 @@ namespace ui::OperationsBarDataHandler
     void CreateHLayout();
     void InsertInLayout(QWidget* object, int index);
 
-    void CreateBar(float start, float end, QString barName, int layoutIndex);
+    OperationBar* CreateBar(float start, float end, QString barName, int layoutIndex);
     void UpdateBarZoom();
 
     void CreateTransparentBar(float start, float end, int layoutIndex);
 
     void FillSpace(int layoutIndex, float endFill);
-    void CreateDeepOperation(OperationData data, int layoutIndex);
+    void CreateDeepOperation(OperationData data, int layoutIndex, OperationBar* parentOperation);
     void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData);
     void InitSession(SessionStruct session);
     void Clear();
+
+    void SetSelected(OperationBar* selected);
 }
 
 class POperationButton: public QPushButton
@@ -100,19 +103,6 @@ public:
 
     void onClick(bool val)
     {
-        if (ui::OperationsBarDataHandler::selected != nullptr)
-        {
-            if (ui::OperationsBarDataHandler::selected == operationBar)
-            {
-                setSelected(false);
-                ui::OperationsBarDataHandler::selected = nullptr;
-                return;
-            }
-            else
-                ui::OperationsBarDataHandler::selected->mainButton->setSelected(false);
-        }
-
-        ui::OperationsBarDataHandler::selected = operationBar;
-        setSelected(true);
+        ui::OperationsBarDataHandler::SetSelected(operationBar);
     }
 };

@@ -9,7 +9,9 @@
 #include "Handlers/DataHandler/DataHandler.hpp"
 #include "Widgets/TimelineWidget.hpp"
 #include "Widgets/ExtendedPropertiesWidget.hpp"
+#include "Widgets/HierarchyWidget.hpp"
 #include "Widgets/MenuBar.hpp"
+#include "ads/DockAreaWidget.h"
 #include <nlohmann/json.hpp>
 using nlohmann::json;
 
@@ -18,25 +20,31 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     ui->setupUi(this);
 
     ads::CDockManager::setConfigFlag(ads::CDockManager::OpaqueSplitterResize, true);
-    ads::CDockManager::setConfigFlag(ads::CDockManager::XmlCompressionEnabled, false);
+//    ads::CDockManager::setConfigFlag(ads::CDockManager::XmlCompressionEnabled, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::FocusHighlighting, true);
     ads::CDockManager::setConfigFlag(ads::CDockManager::ActiveTabHasCloseButton, true);
 
     m_DockManager = new ads::CDockManager(this);
 
-//    ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
-//    CentralDockWidget->setFeature(ads::CDockWidget::NoTab, true);
-//    m_DockManager->setCentralWidget(CentralDockWidget);
-
-    InitStylesheet();
-
     ui::MenuBar::Init();
 
+    ui::HierarchyWidget::CreateWidget();
+    ui::ExtendedPropertiesWidget::CreateWidget();
     ui::TimelineWidget::CreateWidget();
-    ui::ExtendedProperties::CreateWidget();
+
+    ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
+    CentralDockWidget->setFeature(ads::CDockWidget::NoTab, true);
+    m_DockManager->setCentralWidget(CentralDockWidget);
 
     m_DockManager->addDockWidget(ads::CenterDockWidgetArea, ui::TimelineWidget::dockWidget);
-    m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedProperties::dockWidget);
+    m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedPropertiesWidget::dockWidget);
+    ads::CDockAreaWidget * aw = m_DockManager->addDockWidget(ads::RightDockWidgetArea, ui::HierarchyWidget::dockWidget);
+
+    CentralDockWidget->deleteDockWidget();
+
+//    aw->closeArea();
+
+    InitStylesheet();
 
     ui->centralwidget->setAcceptDrops(true);
 }
@@ -93,15 +101,15 @@ void MainWindow::InitStylesheet() {
                                  " * CDockSplitter\n"
                                  " *****************************************************************************/\n"
                                  "ads--CDockContainerWidget > QSplitter {\n"
-                                 "    padding: 1 0 1 0;\n"
+                                 "    padding: 0 0 0 0;\n"
                                  "}\n"
                                  "\n"
                                  "\n"
                                  "ads--CDockSplitter::handle {\n"
-                                 "    background-color: palette(dark);\n"
+                                 "    background-color: rgba(0, 0, 0, 125);\n"
                                  "    /* uncomment the following line if you would like to change the size of\n"
                                  "       the splitter handles */\n"
-                                 "    /* height: 1px; */\n"
+                                 "     height: 1px; \n"
                                  "}\n"
                                  "\n"
                                  "\n"
@@ -134,14 +142,29 @@ void MainWindow::InitStylesheet() {
                                  "\n"
                                  "\n"
                                  "#dockAreaCloseButton {\n"
-                                 "    qproperty-icon: url(:/ads/images/close-button.svg),\n"
-                                 "    url(:/ads/images/close-button-disabled.svg) disabled;\n"
+                                 "    qproperty-icon: url(C:/Users/VERB1807/Downloads/close-button.png),\n"
+                                 "    url(C:/Users/VERB1807/Downloads/close-button.png) disabled;\n"
                                  "    qproperty-iconSize: 16px;\n"
+                                 "    background: transparent;"
+                                 "    border-color: palette(light);\n"
+                                 "    border-style: solid;\n"
+                                 "    border-width: 0 0px 0 0;\n"
+                                 "    background: rgba(0, 0, 0, 20);"
+                                 "}\n"
+                                 "\n"
+                                 "#dockAreaCloseButton::hover {\n"
+                                 "    background: rgba(0, 0, 0, 36);"
+                                 "    border-color: palette(light);\n"
+                                 "    border-style: solid;\n"
+                                 "    border-width: 0 0px 0 0;\n"
+                                 "}\n"
+                                 "#dockAreaCloseButton:pressed {\n"
+                                 "    background: rgba(0, 0, 0, 60);\n"
                                  "}\n"
                                  "\n"
                                  "#detachGroupButton {\n"
-                                 "    qproperty-icon: url(:/ads/images/detach-button.svg),\n"
-                                 "    url(:/ads/images/detach-button-disabled.svg) disabled;\n"
+                                 "    qproperty-icon: url(C:/Users/VERB1807/Desktop/Qt-Advanced-Docking-System-4.3.0/src/images/close-button-disabled.svg),\n"
+                                 "    url(C:/Users/VERB1807/Desktop/Qt-Advanced-Docking-System-4.3.0/src/images/close-button-disabled.svg) disabled;\n"
                                  "    qproperty-iconSize: 16px;\n"
                                  "}\n"
                                  "\n"
@@ -173,7 +196,7 @@ void MainWindow::InitStylesheet() {
                                  "\n"
                                  "#tabCloseButton {\n"
                                  "    margin-top: 2px;\n"
-                                 "    background: none;\n"
+                                 "    background: rgba(0, 0, 0, 12);\n"
                                  "    border: none;\n"
                                  "    padding: 0px -2px;\n"
                                  "    qproperty-icon: url(:/ads/images/close-button.svg),\n"
@@ -221,7 +244,7 @@ void MainWindow::InitStylesheet() {
                                  "    background: palette(light);\n"
                                  "    border-color: palette(light);\n"
                                  "    border-style: solid;\n"
-                                 "    border-width: 1px 0 0 0;\n"
+                                 "    border-width: 0px 0 0 0;\n"
                                  "}\n"
                                  "\n"
                                  "\n"
@@ -229,8 +252,22 @@ void MainWindow::InitStylesheet() {
                                  "    padding: 0px;\n"
                                  "    border: none;\n"
                                  "}\n"
-                                 "\n"
-                                 "\n"
+                                 "QTreeView {\n"
+                                 "    padding: 0px;\n"
+                                 "    border: none;\n"
+                                 "    background: palette(window);"
+                                 "    border-color: palette(light);\n"
+                                 "    border-style: solid;\n"
+                                 "    border-width: 0px 0 0 0;\n"
+                                 "}\n"
+//    qtreeview::branch:has-children:!has-siblings:closed,\
+//Qtreeview::branch:closed:has-children:has-siblings{border-image:none; image:none;} \
+//Qtreeview::branch:open:has-children:!has-siblings,\
+//
+//            Qtreeview::branch:open:has-children:has-siblings{border-image:none; image:none;}
+//                                 "QTreeView::branch::has-children:!has-siblings:closed {\n" BRANCH SIBLING CHANGE FOR IMAGE
+//                                 "background: rgba(255, 255, 255, 123);"
+//                                 "}\n"
                                  "\n"
                                  "/*****************************************************************************\n"
                                  " *\n"
@@ -460,6 +497,4 @@ void MainWindow::InitStylesheet() {
                                  "ads--CAutoHideDockContainer[sideBarLocation=\"3\"] ads--CResizeHandle {\n"
                                  "    border-top: 1px solid palette(dark);\n"
                                  "}");
-
-    //qApp->setStyleSheet(styleSheet);
 }

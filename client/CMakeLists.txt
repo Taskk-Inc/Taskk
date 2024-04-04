@@ -34,6 +34,12 @@ add_executable(client src/main.cpp
         src/ui/Widgets/TimelineWidget.hpp
         src/ui/Widgets/MenuBar.hpp
         src/ui/Widgets/ExtendedPropertiesWidget.hpp
+        src/Handlers/PropertiesHandler/PropertiesHandler.cpp
+        src/Handlers/PropertiesHandler/PropertiesHandler.hpp
+        src/ui/Widgets/HierarchyWidget.hpp
+        src/Handlers/HierarchyHandler/HierarchyHandler.cpp
+        src/Handlers/HierarchyHandler/HierarchyHandler.hpp
+        src/Handlers/HierarchyHandler/HierarchyHandler.hpp
 )
 
 target_include_directories(client PRIVATE

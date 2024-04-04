@@ -9,10 +9,12 @@
 #include "mainwindow.h"
 #include "MenuBar.hpp"
 
-namespace ui::ExtendedProperties
+namespace ui::ExtendedPropertiesWidget
 {
     inline ads::CDockWidget* dockWidget = nullptr;
     inline QScrollArea* scrollArea = nullptr;
+    inline QVBoxLayout* verticalLayout = nullptr;
+    inline QSpacerItem* verticalSpacer = nullptr;
 
     inline void CreateWidget()
     {
@@ -40,7 +42,16 @@ namespace ui::ExtendedProperties
         scrollAreaWidgetContents->setObjectName("scrollAreaWidgetContents");
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 779, 349));
 
+        verticalLayout = new QVBoxLayout(scrollAreaWidgetContents);
+        verticalLayout->setSpacing(0);
+        verticalLayout->setObjectName("verticalLayout_4");
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
+
         scrollArea->setWidget(scrollAreaWidgetContents);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout->addItem(verticalSpacer);
 
         dockWidget = new ads::CDockWidget("Properties");
         dockWidget->setWidget(scrollArea);

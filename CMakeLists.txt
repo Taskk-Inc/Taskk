@@ -3,4 +3,4 @@ project(taskk)
 
 add_subdirectory("client")
 add_subdirectory("lib")
-add_subdirectory("tester")
+add_subdirectory("example")

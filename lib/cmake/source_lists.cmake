@@ -34,5 +34,4 @@ set(LIB_SOURCES
         src/macros/custom_types.hpp
         src/macros/functions.hpp
         # templates
-        include/taskk/cxx/templates/attach_auto_overloads.hpp
-        tests/api/macros.h++)
+        include/taskk/cxx/templates/attach_auto_overloads.hpp)

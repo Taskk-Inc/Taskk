@@ -3,11 +3,12 @@
 //
 
 #include "logic/logic.hpp"
+#include "utils/utils.hpp"
 
 int main()
 {
 	logic::begin_operation("main");
+	utils::find_ongoing_operation("invalid label");
 	logic::end_operation("main");
-	logic::attach_operation_integer("value", 42);
-	return 0;
+	return EXIT_SUCCESS;
 }

@@ -70,10 +70,10 @@ void logic::attach_operation_data(std::shared_ptr<data_types::attached_operation
 }
 
 void logic::end_operation(std::string label)
-{	std::function print_tabs = [](int amount) { for(int i = 0; i < amount; ++i) fputs("    ", stdout); };
-
-	// operation architecture log
+{	ensure_initialization();
 	/*
+	// operation architecture log
+	std::function print_tabs = [](int amount) { for(int i = 0; i < amount; ++i) fputs("    ", stdout); };
 	std::function<void(std::string, data_types::timestamp_operation_map, int)> log_list = [&](std::string label, data_types::timestamp_operation_map list, int depth)
 	{	print_tabs(depth); puts(label.c_str());
 		for(auto pair : list)

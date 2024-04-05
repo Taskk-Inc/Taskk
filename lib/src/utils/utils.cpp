@@ -68,7 +68,8 @@ data_types::timestamp_operation_pair & utils::find_ongoing_operation(std::string
 		};
 
 	// search
-	search((data_types::timestamp_operation_pair &)*globals::session.operations.rbegin());
+	if(globals::session.operations.size())
+		search((data_types::timestamp_operation_pair &)*globals::session.operations.rbegin());
 
 	// error checking
 	if(!found_pair)

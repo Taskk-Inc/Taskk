@@ -14,8 +14,6 @@ OperationBar *ui::OperationsBarDataHandler::CreateBar(float start, float end, QS
     float US = end - start;
     float totalPixels = US / ui::OperationsBarDataHandler::Settings.ratioPixels;
 
-    std::cout << barName.toStdString() << ":" << US << std::endl;
-
     POperationButton *pushButton = new POperationButton();
 
     pushButton->setMinimumWidth(totalPixels);
@@ -74,10 +72,10 @@ void ui::OperationsBarDataHandler::FillSpace(int layoutIndex, float endFill) {
     }
 }
 
-void ui::OperationsBarDataHandler::InitOperation(float start, float end, QString operationName,
-                                                 std::vector<OperationData> subData) {
+void ui::OperationsBarDataHandler::InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData, uint64_t start_timestamp) {
     ui::OperationsBarDataHandler::FillSpace(0, start);
     OperationBar *bar = ui::OperationsBarDataHandler::CreateBar(start, end, operationName, 0);
+    bar->timestamp = start_timestamp+start;
 
     for (OperationData data: subData)
         ui::OperationsBarDataHandler::CreateDeepOperation(data, 1, bar);
@@ -89,6 +87,7 @@ void
 ui::OperationsBarDataHandler::CreateDeepOperation(OperationData data, int layoutIndex, OperationBar *parentOperation) {
     ui::OperationsBarDataHandler::FillSpace(layoutIndex, data.start);
     OperationBar *bar = ui::OperationsBarDataHandler::CreateBar(data.start, data.end, data.operationName, layoutIndex);
+    bar->timestamp = parentOperation->timestamp + data.start;
 
     for (OperationData data2: data.subData)
         ui::OperationsBarDataHandler::CreateDeepOperation(data2, layoutIndex + 1, bar);
@@ -135,6 +134,7 @@ void ui::OperationsBarDataHandler::Clear() {
     ui::OperationsBarDataHandler::horizontalLayouts.clear();
     ui::OperationsBarDataHandler::bars.clear();
     ui::OperationsBarDataHandler::hierarchyBars.clear();
+    ui::OperationsBarDataHandler::selected = nullptr;
 
     ui::HierarchyHandler::Clear();
 }
@@ -230,7 +230,7 @@ void ui::OperationsBarDataHandler::InitSession(SessionStruct session) {
     ui::OperationsBarDataHandler::Clear();
     ui::OperationsBarDataHandler::zoomAmount = 1;
     for (auto s: session.operations) {
-        ui::OperationsBarDataHandler::InitOperation(s.start, s.end, s.operationName, s.subData);
+        ui::OperationsBarDataHandler::InitOperation(s.start, s.end, s.operationName, s.subData, session.start_timestamp);
     }
     ui::OperationsBarDataHandler::UpdateBarZoom();
 

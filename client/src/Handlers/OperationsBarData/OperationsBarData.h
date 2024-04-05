@@ -12,6 +12,7 @@ struct OperationBar
     class POperationButton* mainButton;
     float startUS;
     float endUS;
+    uint64_t timestamp;
 
     std::vector<OperationBar> childOperations;
 };
@@ -63,7 +64,7 @@ namespace ui::OperationsBarDataHandler
 
     void FillSpace(int layoutIndex, float endFill);
     void CreateDeepOperation(OperationData data, int layoutIndex, OperationBar* parentOperation);
-    void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData);
+    void InitOperation(float start, float end, QString operationName, std::vector<OperationData> subData, uint64_t start_timestamp);
     void InitSession(SessionStruct session);
     void Clear();
 

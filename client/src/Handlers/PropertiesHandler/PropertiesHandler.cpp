@@ -5,12 +5,15 @@
 #include "PropertiesHandler.hpp"
 #include "Handlers/OperationsBarData/OperationsBarData.h"
 #include "Widgets/ExtendedPropertiesWidget.hpp"
+#include <chrono>
 
 void ui::PropertiesHandler::CreateProperty(OperationBar operationBar)
 {
     QLabel* nameLabel = new QLabel(operationBar.mainButton->nameLabel->text());
 
-    QLabel* timestampLabel = new QLabel("TODO");
+    std::time_t time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::microseconds(operationBar.timestamp)).count();
+    QLabel* timestampLabel = new QLabel(asctime(localtime(&time)));
+    timestampLabel->setMaximumHeight(15);
 
     QLabel* timeLabel = new QLabel(QString::number(operationBar.endUS - operationBar.startUS).append(" μs"));
     timeLabel->setAlignment(Qt::AlignCenter | Qt::AlignRight);

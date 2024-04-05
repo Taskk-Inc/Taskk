@@ -1,55 +1,28 @@
 cmake_minimum_required(VERSION 3.27)
 project(lib)
 
+message_separator()
+message("Taskk : Generating the library")
+message_small_separator()
+
 # if it wasn't for 'using enum' c++20 wouldn't be required, it shouldn't be that hard to backport
 set(CMAKE_CXX_STANDARD 20)
 
-add_library(lib SHARED
-        # api declarations
-        include/taskk.h
-        include/taskk.hpp
-        include/taskk/c/taskk_api.h
-        include/taskk/cxx/include_all.hpp
-        include/taskk/cxx/data_types/data_types.hpp
-        include/taskk/cxx/macros/make_scope_operation.hpp
-        include/taskk/cxx/macros/taskk_api.hpp
-        include/taskk/cxx/macros/utils.hpp
-        # api definitions
-        src/taskk/c_api.cpp
-        src/taskk/cxx_wrapper.cpp
-        src/taskk/cxx/data_types.cpp
-        # logic
-        src/logic/logic.cpp
-        src/logic/logic.hpp
-        # data types
-        src/data_types/data_types.hpp
-        # globals
-        src/globals/globals.hpp
-        # utils
-        src/utils/utils.cpp
-        src/utils/utils.hpp
-        # i/o
-        src/io/io.cpp
-        src/io/io.hpp
-        #json
-        src/json/json.cpp
-        src/json/json.hpp
-        #macros
-        src/macros/custom_types.hpp
-        src/macros/functions.hpp
-        # templates
-        include/taskk/cxx/templates/attach_auto_overloads.hpp
-)
+include_directories(. include src libs/jansson/include)
+link_libraries(${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a)
+include(cmake/source_lists.cmake)
 
+add_library(lib SHARED ${LIB_API_SOURCES} ${LIB_SOURCES})
 set_target_properties(lib PROPERTIES PREFIX "" OUTPUT_NAME "taskk")
-
-
-target_link_libraries(lib PRIVATE ${PROJECT_SOURCE_DIR}/libs/jansson/bin/libjansson.a)
-
-target_include_directories(lib PRIVATE
-        .
-        include
-        src
-        libs/jansson/include)
-
 target_compile_definitions(lib PRIVATE TASKK_EXPORT)
+
+# unit testing
+option(TASKK_LIB_BUILD_TESTS "Build unit tests for the taskk library." OFF)
+if(TASKK_LIB_BUILD_TESTS STREQUAL ON)
+    message("Generating Unit Tests")
+    include(tests/tests.cmake)
+else()
+    message("Taskk : Unit tests for the Taskk library will *not* be built.\nConsider enabling them with TASKK_LIB_BUILD_TESTS")
+endif()
+
+message("Taskk library generation done")

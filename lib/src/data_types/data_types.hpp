@@ -48,13 +48,12 @@ namespace data_types
 		std::chrono::microseconds timestamp;
 		/// the label shown in the client
 		std::string label;
-		// data member
-		union
-		{	std::string data_string;
-			json_int_t data_integer;
-			double data_real;
-			bool data_boolean;
-		};
+		// @note this used to be a union but cygwin raised
+		// segmentation faults whenever data_string was assigned
+		std::string data_string;
+		json_int_t data_integer;
+		double data_real;
+		bool data_boolean;
 	};
 
 	/// a profiling session

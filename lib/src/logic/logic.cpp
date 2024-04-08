@@ -14,7 +14,7 @@
 
 #define DEFINE_ATTACHED_DATA_FUNC(actual_type, api_type) \
 	void logic::attach_operation_##api_type(std::string label, actual_type data) \
-	{	auto operation_data = utils::make_shared_operation_data(); \
+	{	auto operation_data = std::make_shared<data_types::attached_operation_data>(); \
 		operation_data->timestamp = utils::get_unix_time() - globals::session.start_timestamp; \
 		operation_data->label = label; \
 		operation_data->type = data_types::attached_operation_data::data_type::api_type; \

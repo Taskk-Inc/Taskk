@@ -20,6 +20,4 @@ namespace utils
 	data_types::timestamp_operation_pair & find_ongoing_operation(std::string label);
 	/// attempts to obtain the latest ongoing operation's timestamp/operation pair
 	data_types::timestamp_operation_pair * find_latest_ongoing_operation();
-	/// creates a shared pointer for a custom operation data
-	std::shared_ptr<data_types::attached_operation_data> make_shared_operation_data();
 }

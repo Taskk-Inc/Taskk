@@ -40,6 +40,9 @@ add_executable(client src/main.cpp
         src/Handlers/HierarchyHandler/HierarchyHandler.cpp
         src/Handlers/HierarchyHandler/HierarchyHandler.hpp
         src/Handlers/HierarchyHandler/HierarchyHandler.hpp
+        src/ui/Widgets/ChartsWidget.hpp
+        src/Handlers/EfficiencyChartHandler/EfficiencyChartHandler.cpp
+        src/Handlers/EfficiencyChartHandler/EfficiencyChartHandler.hpp
 )
 
 target_include_directories(client PRIVATE

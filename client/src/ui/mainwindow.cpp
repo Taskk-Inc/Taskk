@@ -11,6 +11,7 @@
 #include "Widgets/ExtendedPropertiesWidget.hpp"
 #include "Widgets/HierarchyWidget.hpp"
 #include "Widgets/MenuBar.hpp"
+#include "Widgets/ChartsWidget.hpp"
 #include "ads/DockAreaWidget.h"
 #include <nlohmann/json.hpp>
 using nlohmann::json;
@@ -30,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
 
     ui::HierarchyWidget::CreateWidget();
     ui::ExtendedPropertiesWidget::CreateWidget();
+    ui::ChartsWidget::CreateWidget();
     ui::TimelineWidget::CreateWidget();
 
     ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
@@ -37,12 +39,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
     m_DockManager->setCentralWidget(CentralDockWidget);
 
     m_DockManager->addDockWidget(ads::CenterDockWidgetArea, ui::TimelineWidget::dockWidget);
-    m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedPropertiesWidget::dockWidget);
-    ads::CDockAreaWidget * aw = m_DockManager->addDockWidget(ads::RightDockWidgetArea, ui::HierarchyWidget::dockWidget);
+    auto propertiesArea = m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedPropertiesWidget::dockWidget);
+    m_DockManager->addDockWidget(ads::RightDockWidgetArea, ui::ChartsWidget::dockWidget, propertiesArea);
+    m_DockManager->addDockWidget(ads::RightDockWidgetArea, ui::HierarchyWidget::dockWidget);
 
     CentralDockWidget->deleteDockWidget();
 
-//    aw->closeArea();
+//    ui::ChartsWidget::dockWidget->closeDockWidget();
 
     InitStylesheet();
 

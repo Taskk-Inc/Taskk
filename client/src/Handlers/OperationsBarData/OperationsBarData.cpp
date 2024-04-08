@@ -5,6 +5,7 @@
 #include "Widgets/TimelineWidget.hpp"
 #include "../HierarchyHandler/HierarchyHandler.hpp"
 #include "../PropertiesHandler/PropertiesHandler.hpp"
+#include "../EfficiencyChartHandler/EfficiencyChartHandler.hpp"
 //
 // Created by VERB1807 on 3/26/2024.
 //
@@ -44,6 +45,7 @@ OperationBar *ui::OperationsBarDataHandler::CreateBar(float start, float end, QS
     operationBar->endUS = end;
     pushButton->nameLabel = testLabel2;
     pushButton->microLabel = testLabel3;
+    pushButton->layoutIndex = layoutIndex;
 
     pushButton->operationBar = operationBar;
     bars.push_back(operationBar);
@@ -137,6 +139,7 @@ void ui::OperationsBarDataHandler::Clear() {
     ui::OperationsBarDataHandler::selected = nullptr;
 
     ui::HierarchyHandler::Clear();
+    ui::EfficiencyChartHandler::Clear();
 }
 
 void ui::OperationsBarDataHandler::UpdateBarZoom() {
@@ -239,6 +242,7 @@ void ui::OperationsBarDataHandler::InitSession(SessionStruct session) {
 
 void ui::OperationsBarDataHandler::SetSelected(OperationBar *selected) {
     ui::PropertiesHandler::Clear();
+    ui::EfficiencyChartHandler::Clear();
     if (ui::OperationsBarDataHandler::selected != nullptr) {
         if (ui::OperationsBarDataHandler::selected == selected) {
             selected->mainButton->setSelected(false);
@@ -251,4 +255,5 @@ void ui::OperationsBarDataHandler::SetSelected(OperationBar *selected) {
     ui::OperationsBarDataHandler::selected = selected;
     selected->mainButton->setSelected(true);
     ui::PropertiesHandler::InitOperationProperties(*selected);
+    ui::EfficiencyChartHandler::InitSeries(*selected->mainButton->operationBar, selected->mainButton->layoutIndex);
 }

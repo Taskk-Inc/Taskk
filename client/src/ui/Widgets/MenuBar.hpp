@@ -52,6 +52,7 @@ namespace ui::MenuBar
         QObject::connect(action, QAction::triggered, action, [](){ {{{OpenImportDialog();}}} });
 
         menuFile->addAction(action);
+        menuFile->addSeparator();
         menuFile->addAction(new QAction("Settings"));
     }
 

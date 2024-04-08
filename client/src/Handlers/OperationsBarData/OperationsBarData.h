@@ -80,6 +80,7 @@ public:
     OperationBar* operationBar;
     QLabel* nameLabel;
     QLabel* microLabel;
+    int layoutIndex = -1;
 
     explicit POperationButton(QWidget *parent = nullptr): QPushButton(parent) {};
     explicit POperationButton(const QString &text, QWidget *parent = nullptr): QPushButton(text, parent) {};

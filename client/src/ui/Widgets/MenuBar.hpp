@@ -6,6 +6,7 @@
 
 #include "../ui_mainwindow.h"
 #include "mainwindow.h"
+#include "SettingsWidget.hpp"
 
 namespace ui::MenuBar
 {
@@ -47,13 +48,26 @@ namespace ui::MenuBar
 
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
 
-        QAction* action = new QAction("Import File");
+        QAction* importAction = new QAction("Import File");
 
-        QObject::connect(action, QAction::triggered, action, [](){ {{{OpenImportDialog();}}} });
+        QObject::connect(importAction, QAction::triggered, importAction, [](){{{{
+            OpenImportDialog();
+        }}}});
 
-        menuFile->addAction(action);
+        QAction* settingsAction = new QAction("Settings");
+
+        ui::SettingsWidget::CreateWidget();
+
+        QObject::connect(settingsAction, QAction::triggered, settingsAction, [](){{{{
+                    MainWindow* w = (MainWindow*)ui::mainWindow->mainWindowWidget;
+                    if (w->GetDockManager() == nullptr || ui::SettingsWidget::dockWidget->isVisible())
+                        return;
+                    w->GetDockManager()->addDockWidgetFloating(ui::SettingsWidget::dockWidget);
+                }}}});
+
+        menuFile->addAction(importAction);
         menuFile->addSeparator();
-        menuFile->addAction(new QAction("Settings"));
+        menuFile->addAction(settingsAction);
     }
 
     inline void InitMenuView()

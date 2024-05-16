@@ -16,6 +16,7 @@ void ui::EfficiencyChartHandler::InitSeries(OperationBar data, int hLayoutIndex)
 
     std::map<int, int> map = {};
     int n = 1;
+    int selectedIndex = -1;
 
     for (int i = 0; i < table.size(); i++)
     {
@@ -23,17 +24,18 @@ void ui::EfficiencyChartHandler::InitSeries(OperationBar data, int hLayoutIndex)
 
         if (table[i]->nameLabel->text() == data.mainButton->nameLabel->text())
         {
+            if (&table[i]->nameLabel == &data.mainButton->nameLabel)
+                selectedIndex = n;
             map.insert({n, table[i]->operationBar->endUS - table[i]->operationBar->startUS});
             n += 1;
         }
     }
 
-    ui::EfficiencyChartHandler::CreateSeries(map);
+    ui::EfficiencyChartHandler::CreateSeries(map, selectedIndex);
 }
 
-void ui::EfficiencyChartHandler::CreateSeries(std::map<int, int> seriesData)
+void ui::EfficiencyChartHandler::CreateSeries(std::map<int, int> seriesData, int selectedIndex)
 {
-    int maxX = seriesData.size();
     int maxY;
 
     int biggestY = -1;
@@ -55,7 +57,6 @@ void ui::EfficiencyChartHandler::CreateSeries(std::map<int, int> seriesData)
     {
         if (seriesData[i] == 0) continue;
         categories.append(QString::number(i));
-        std::cout << seriesData[i] << std::endl;
         set->append(seriesData[i]);
     }
     barSeries->append(set);
@@ -66,6 +67,28 @@ void ui::EfficiencyChartHandler::CreateSeries(std::map<int, int> seriesData)
 
     barSeries->attachAxis(ui::ChartsWidget::axisX);
     barSeries->attachAxis(ui::ChartsWidget::axisY);
+
+//    hoverItem.setBrush(QBrush(Qt::red));
+//    hoverItem.setPen(Qt::NoPen);
+//
+//    selectedItem.setBrush(QBrush(Qt::gray));
+//    selectedItem.setPen(Qt::NoPen);
+
+//    QObject::connect(set, &QBarSet::hovered, [](bool status, int /*index*/){
+//        QPoint p = ui::ChartsWidget::chartView->mapFromGlobal(QCursor::pos());
+//        if(status){
+//            QGraphicsItem *it = ui::ChartsWidget::chartView->itemAt(p);
+//            hoverItem.setParentItem(it);
+//            hoverItem.setRect(it->boundingRect());
+//            hoverItem.show();
+//            QToolTip::showText(QCursor::pos() + QPoint(0, 10), "HELLO");
+//        }
+//        else{
+//            hoverItem.setParentItem(nullptr);
+//            hoverItem.hide();
+//            QToolTip::hideText();
+//        }
+//    });
 
 //    series = new QSplineSeries();
 //

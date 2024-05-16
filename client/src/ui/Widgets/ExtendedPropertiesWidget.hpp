@@ -43,9 +43,9 @@ namespace ui::ExtendedPropertiesWidget
         scrollAreaWidgetContents->setGeometry(QRect(0, 0, 779, 349));
 
         verticalLayout = new QVBoxLayout(scrollAreaWidgetContents);
-        verticalLayout->setSpacing(0);
+        verticalLayout->setSpacing(2);
         verticalLayout->setObjectName("verticalLayout_4");
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+        verticalLayout->setContentsMargins(10, 5, 10, 5);
 
         scrollArea->setWidget(scrollAreaWidgetContents);
 

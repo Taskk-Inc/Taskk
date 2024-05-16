@@ -27,16 +27,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) , ui(new Ui::MainW
 
     m_DockManager = new ads::CDockManager(this);
 
+    ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
+    CentralDockWidget->setFeature(ads::CDockWidget::NoTab, true);
+    m_DockManager->setCentralWidget(CentralDockWidget);
+
     ui::MenuBar::Init();
 
     ui::HierarchyWidget::CreateWidget();
     ui::ExtendedPropertiesWidget::CreateWidget();
     ui::ChartsWidget::CreateWidget();
     ui::TimelineWidget::CreateWidget();
-
-    ads::CDockWidget* CentralDockWidget = new ads::CDockWidget("CentralWidget");
-    CentralDockWidget->setFeature(ads::CDockWidget::NoTab, true);
-    m_DockManager->setCentralWidget(CentralDockWidget);
 
     m_DockManager->addDockWidget(ads::CenterDockWidgetArea, ui::TimelineWidget::dockWidget);
     auto propertiesArea = m_DockManager->addDockWidget(ads::BottomDockWidgetArea, ui::ExtendedPropertiesWidget::dockWidget);

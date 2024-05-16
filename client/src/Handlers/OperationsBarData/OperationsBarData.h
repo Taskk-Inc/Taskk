@@ -69,6 +69,8 @@ namespace ui::OperationsBarDataHandler
     void Clear();
 
     void SetSelected(OperationBar* selected);
+
+    void UpdateBarsDisplayTime();
 }
 
 class POperationButton: public QPushButton

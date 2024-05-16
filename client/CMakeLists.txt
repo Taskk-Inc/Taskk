@@ -15,7 +15,7 @@ find_package(Qt6 COMPONENTS
         Charts
         REQUIRED)
 
-add_executable(client src/main.cpp
+add_executable(client WIN32 src/main.cpp
         src/ui/ui.cpp
         src/ui/ui.hpp
         src/templates/delegate.hpp
@@ -43,6 +43,9 @@ add_executable(client src/main.cpp
         src/ui/Widgets/ChartsWidget.hpp
         src/Handlers/EfficiencyChartHandler/EfficiencyChartHandler.cpp
         src/Handlers/EfficiencyChartHandler/EfficiencyChartHandler.hpp
+        src/Handlers/SettingsHandler/SettingsHandler.cpp
+        src/Handlers/SettingsHandler/SettingsHandler.hpp
+        src/ui/Widgets/SettingsWidget.hpp
 )
 
 target_include_directories(client PRIVATE

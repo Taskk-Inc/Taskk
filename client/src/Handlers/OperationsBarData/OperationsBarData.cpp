@@ -6,6 +6,7 @@
 #include "../HierarchyHandler/HierarchyHandler.hpp"
 #include "../PropertiesHandler/PropertiesHandler.hpp"
 #include "../EfficiencyChartHandler/EfficiencyChartHandler.hpp"
+#include "../SettingsHandler/SettingsHandler.hpp"
 //
 // Created by VERB1807 on 3/26/2024.
 //
@@ -256,4 +257,15 @@ void ui::OperationsBarDataHandler::SetSelected(OperationBar *selected) {
     selected->mainButton->setSelected(true);
     ui::PropertiesHandler::InitOperationProperties(*selected);
     ui::EfficiencyChartHandler::InitSeries(*selected->mainButton->operationBar, selected->mainButton->layoutIndex);
+}
+
+void ui::OperationsBarDataHandler::UpdateBarsDisplayTime() {
+    for (auto operationBar : bars)
+    {
+        if (operationBar->mainButton->microLabel == nullptr) continue;
+//        QString::number(US).append(" μs")
+        float US = (operationBar->endUS - operationBar->startUS)/ui::SettingsHandler::timeDisplayDivider;
+
+//        operationBar->mainButton->microLabel->setText();
+    }
 }
